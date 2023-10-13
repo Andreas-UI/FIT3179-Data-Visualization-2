@@ -1,0 +1,226 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "NODE.csv",
+        "format": {
+            "type": "csv"
+        }
+    },
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 50000,
+            "bind": {
+                "input": "range",
+                "min": 3500,
+                "max": 60000,
+                "step": 100,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                144.930649,
+                -37.766010
+            ],
+            "bind": {
+                "input": "select",
+                "options": [
+                    [
+                        144.930649,
+                        -37.766010
+                    ],
+                    [
+                        146.572871,
+                        -38.137149
+                    ],
+                    [
+                        145.176717,
+                        -37.939142
+                    ],
+                    [
+                        146.016932,
+                        -36.574971
+                    ],
+                    [
+                        144.410780,
+                        -36.700180
+                    ],
+                    [
+                        143.742491,
+                        -38.195569
+                    ],
+                    [
+                        143.232928,
+                        -36.766207
+                    ]
+                ],
+                "labels": [
+                    "METROPOLITAN NORTH WEST REGION",
+                    "EASTERN REGION ",
+                    "METROPOLITAN SOUTH EAST REGION",
+                    "NORTH EASTERN REGION",
+                    "NORTHERN REGION",
+                    "SOUTH WESTERN REGION",
+                    "WESTERN REGION"
+                ],
+                "name": "Map Centre: "
+            }
+        }
+    ],
+    "projection": {
+        "type": "equirectangular",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "vic_lga_gda94.topojson",
+                "format": {
+                    "type": "topojson",
+                    "feature": "unnamed"
+                }
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "lightgray",
+                "stroke": "white"
+            }
+        },
+        {
+            "transform": [
+                {
+                    "aggregate": [
+                        {
+                            "op": "count",
+                            "field": "ACCIDENT_NO",
+                            "as": "count"
+                        }
+                    ],
+                    "groupby": [
+                        "LGA_NAME"
+                    ]
+                },
+                {
+                    "lookup": "LGA_NAME",
+                    "from": {
+                        "data": {
+                            "url": "vic_lga_gda94.topojson",
+                            "format": {
+                                "type": "topojson",
+                                "feature": "unnamed"
+                            }
+                        },
+                        "key": "properties.ABB_NAME",
+                        "fields": [
+                            "type",
+                            "properties",
+                            "geometry"
+                        ]
+                    }
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "white",
+                "strokeWidth": 0.2
+            },
+            "encoding": {
+                "color": {
+                    "field": "count",
+                    "type": "quantitative",
+                    "title": "Count of accidents",
+                    "scale": {
+                        "scheme": "goldred"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "LGA_NAME",
+                        "type": "nominal",
+                        "title": "Area of Accident"
+                    },
+                    {
+                        "field": "count",
+                        "type": "quantitative",
+                        "title": "Number of Accident"
+                    }
+                ]
+            }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "name": "METROPOLITAN NORTH WEST REGION",
+                        "Long": 144.930649,
+                        "Lat": -37.766010
+                    },
+                    {
+                        "name": "EASTERN REGION ",
+                        "Long": 146.572871,
+                        "Lat": -38.137149
+                    },
+                    {
+                        "name": "METROPOLITAN SOUTH EAST REGION",
+                        "Long": 145.176717,
+                        "Lat": -37.939142
+                    },
+                    {
+                        "name": "NORTH EASTERN REGION",
+                        "Long": 146.016932,
+                        "Lat": -36.574971
+                    },
+                    {
+                        "name": "NORTHERN REGION",
+                        "Long": 144.410780,
+                        "Lat": -36.700180
+                    },
+                    {
+                        "name": "SOUTH WESTERN REGION",
+                        "Long": 143.742491,
+                        "Lat": -38.195569
+                    },
+                    {
+                        "name": "WESTERN REGION",
+                        "Long": 143.232928,
+                        "Lat": -36.766207
+                    }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "fontSize": 8,
+                "fontWeight": "bold"
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "Long",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "Lat",
+                    "type": "quantitative"
+                },
+                "text": {
+                    "field": "name",
+                    "type": "nominal"
+                }
+            }
+        }
+    ],
+    "width": 600,
+    "height": 400,
+    "title": "Road Accident in Victoria, Australia",
+    "config": {
+        "legend": {
+            "orient": "left"
+        }
+    }
+}

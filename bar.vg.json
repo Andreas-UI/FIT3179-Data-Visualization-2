@@ -1,0 +1,114 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "ACCIDENT.csv",
+        "format": {
+            "type": "csv"
+        }
+    },
+    "transform": [
+        {
+            "lookup": "ACCIDENT_NO",
+            "from": {
+                "data": {
+                    "url": "ROAD_SURFACE_COND.csv",
+                    "format": {
+                        "type": "csv"
+                    }
+                },
+                "key": "ACCIDENT_NO",
+                "fields": [
+                    "Surface Cond Desc"
+                ]
+            }
+        },
+        {
+            "lookup": "ACCIDENT_NO",
+            "from": {
+                "data": {
+                    "url": "ATMOSPHERIC_COND.csv",
+                    "format": {
+                        "type": "csv"
+                    }
+                },
+                "key": "ACCIDENT_NO",
+                "fields": [
+                    "Atmosph Cond Desc"
+                ]
+            }
+        },
+        {
+            "filter": {
+                "and": [
+                    {
+                        "field": "Surface Cond Desc",
+                        "oneOf": [
+                            "Dry",
+                            "Wet"
+                        ]
+                    },
+                    {
+                        "field": "Atmosph Cond Desc",
+                        "oneOf": [
+                            "Clear",
+                            "Raining"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "aggregate": [
+                {
+                    "field": "ACCIDENT_NO",
+                    "op": "count",
+                    "as": "count"
+                }
+            ],
+            "groupby": [
+                "Atmosph Cond Desc",
+                "Surface Cond Desc",
+                "Accident Type Desc"
+            ]
+        }
+    ],
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "Accident Type Desc",
+            "type": "nominal",
+            "title": "Accident",
+            "sort": "-y"
+        },
+        "y": {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Number of Accident"
+        },
+        "tooltip": [
+            {
+                "field": "count",
+                "type": "quantitative",
+                "title": "Count of accidents"
+            },
+            {
+                "field": "Atmosph Cond Desc",
+                "type": "nominal",
+                "title": "Atmospheric Condition"
+            },
+            {
+                "field": "Surface Cond Desc",
+                "type": "nominal",
+                "title": "Road Surface Condition"
+            }
+        ]
+    },
+    "width": 600,
+    "height": 300,
+    "title": "Correlation Heatmap by Count of accident_id",
+    "config": {
+        "legend": {
+            "orient": "top"
+        }
+    }
+}

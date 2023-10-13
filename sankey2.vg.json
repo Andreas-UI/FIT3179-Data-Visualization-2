@@ -1,0 +1,167 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "ACCIDENT.csv",
+        "format": {
+            "type": "csv"
+        }
+    },
+    "transform": [
+        {
+            "aggregate": [
+                {
+                    "op": "count",
+                    "field": "ACCIDENT_NO",
+                    "as": "count"
+                }
+            ],
+            "groupby": [
+                "Road Geometry Desc",
+                "Light Condition Desc"
+            ]
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "Road Geometry Desc",
+            "type": "nominal",
+            "axis": {
+                "domain": true,
+                "grid": false,
+                "ticks": false,
+                "labels": true
+            },
+            "title": null
+        },
+        "y": {
+            "field": "count",
+            "type": "quantitative",
+            "axis": {
+                "domain": false,
+                "grid": false,
+                "ticks": false,
+                "labels": false
+            }
+        },
+        "opacity": {
+            "value": 1
+        },
+        "color": {
+            "title": null,
+            "field": "Light Condition Desc",
+            "type": "nominal"
+        },
+        "order": {
+            "field": "count",
+            "type": "quantitative",
+            "sort": "descending"
+        }
+    },
+    "layer": [
+        {
+            "transform": [
+                {
+                    "window": [
+                        {
+                            "op": "sum",
+                            "field": "count",
+                            "as": "sumx"
+                        }
+                    ],
+                    "groupby": [
+                        "Road Geometry Desc",
+                        "Light Condition Desc"
+                    ]
+                }
+            ],
+            "mark": {
+                "type": "bar"
+            },
+            "encoding": {
+                "y": {
+                    "field": "sumx",
+                    "type": "quantitative",
+                    "stack": "zero"
+                },
+                "x": {
+                    "field": "Road Geometry Desc",
+                    "type": "nominal"
+                },
+                "order": {
+                    "aggregate": "max",
+                    "field": "count",
+                    "type": "quantitative",
+                    "sort": "descending"
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "window": [
+                        {
+                            "op": "sum",
+                            "field": "count",
+                            "as": "sum"
+                        }
+                    ],
+                    "groupby": [
+                        "Road Geometry Desc",
+                        "Light Condition Desc"
+                    ]
+                }
+            ],
+            "mark": {
+                "type": "area",
+                "interpolate": "monotone"
+            },
+            "encoding": {
+                "y": {
+                    "field": "sum",
+                    "type": "quantitative",
+                    "stack": "zero"
+                },
+                "x": {
+                    "field": "Road Geometry Desc",
+                    "type": "nominal"
+                },
+                "detail": {
+                    "field": "Light Condition Desc",
+                    "type": "nominal"
+                },
+                "order": {
+                    "aggregate": "max",
+                    "field": "count",
+                    "type": "quantitative",
+                    "sort": "descending"
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "bar",
+                "width": {
+                    "band": 0.15
+                }
+            },
+            "encoding": {
+                "y": {
+                    "field": "count",
+                    "type": "quantitative",
+                    "stack": "zero"
+                },
+                "opacity": {
+                    "value": 0.2
+                }
+            }
+        }
+    ],
+    "width": 600,
+    "height": 300,
+    "title": "Correlation Heatmap by Count of accident_id",
+    "config": {
+        "legend": {
+            "orient": "top"
+        }
+    }
+}
