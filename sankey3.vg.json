@@ -1,0 +1,321 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.2.json",
+    "height": 300,
+    "width": 600,
+    "data": [
+      {
+        "name": "rawData",
+        "values": [
+          {
+            "key": {"stk1": "Bicyclists", "stk2": "Not injured"},
+            "doc_count": 139
+          },
+          {
+            "key": {"stk1": "Bicyclists", "stk2": "Other injury"},
+            "doc_count": 4654
+          },
+          {
+            "key": {"stk1": "Bicyclists", "stk2": "Serious injury"},
+            "doc_count": 1990
+          },
+          {"key": {"stk1": "Drivers", "stk2": "Fatality"}, "doc_count": 1086},
+          {"key": {"stk1": "Drivers", "stk2": "Not injured"}, "doc_count": 81205},
+          {
+            "key": {"stk1": "Drivers", "stk2": "Other injury"},
+            "doc_count": 57368
+          },
+          {
+            "key": {"stk1": "Drivers", "stk2": "Serious injury"},
+            "doc_count": 19977
+          },
+          {
+            "key": {"stk1": "Motorcyclists", "stk2": "Fatality"},
+            "doc_count": 284
+          },
+          {
+            "key": {"stk1": "Motorcyclists", "stk2": "Not injured"},
+            "doc_count": 433
+          },
+          {
+            "key": {"stk1": "Motorcyclists", "stk2": "Other injury"},
+            "doc_count": 6312
+          },
+          {
+            "key": {"stk1": "Motorcyclists", "stk2": "Serious injury"},
+            "doc_count": 4853
+          },
+          {"key": {"stk1": "Passengers", "stk2": "Fatality"}, "doc_count": 508},
+          {
+            "key": {"stk1": "Passengers", "stk2": "Not injured"},
+            "doc_count": 42013
+          },
+          {
+            "key": {"stk1": "Passengers", "stk2": "Other injury"},
+            "doc_count": 26598
+          },
+          {
+            "key": {"stk1": "Passengers", "stk2": "Serious injury"},
+            "doc_count": 8136
+          },
+          {"key": {"stk1": "Pedestrians", "stk2": "Fatality"}, "doc_count": 337},
+          {
+            "key": {"stk1": "Pedestrians", "stk2": "Not injured"},
+            "doc_count": 232
+          },
+          {
+            "key": {"stk1": "Pedestrians", "stk2": "Other injury"},
+            "doc_count": 5717
+          },
+          {
+            "key": {"stk1": "Pedestrians", "stk2": "Serious injury"},
+            "doc_count": 4095
+          },
+          {
+            "key": {"stk1": "Pillion Passengers", "stk2": "Fatality"},
+            "doc_count": 6
+          },
+          {
+            "key": {"stk1": "Pillion Passengers", "stk2": "Not injured"},
+            "doc_count": 76
+          },
+          {
+            "key": {"stk1": "Pillion Passengers", "stk2": "Other injury"},
+            "doc_count": 380
+          },
+          {
+            "key": {"stk1": "Pillion Passengers", "stk2": "Serious injury"},
+            "doc_count": 257
+          },
+          {"key": {"stk1": "Unknown", "stk2": "Not injured"}, "doc_count": 2064},
+          {"key": {"stk1": "Unknown", "stk2": "Other injury"}, "doc_count": 226},
+          {"key": {"stk1": "Unknown", "stk2": "Serious injury"}, "doc_count": 53}
+        ],
+        "transform": [
+          {"type": "formula", "expr": "datum.key.stk1", "as": "stk1"},
+          {"type": "formula", "expr": "datum.key.stk2", "as": "stk2"},
+          {"type": "formula", "expr": "datum.doc_count", "as": "size"}
+        ]
+      },
+      {
+        "name": "nodes",
+        "source": "rawData",
+        "transform": [
+          {"type": "formula", "expr": "datum.stk1+datum.stk2", "as": "key"},
+          {"type": "fold", "fields": ["stk1", "stk2"], "as": ["stack", "grpId"]},
+          {
+            "type": "formula",
+            "expr": "datum.stack == 'stk1' ? datum.stk1+' '+datum.stk2 : datum.stk2+' '+datum.stk1",
+            "as": "sortField"
+          },
+          {
+            "type": "stack",
+            "groupby": ["stack"],
+            "sort": {"field": "sortField", "order": "descending"},
+            "field": "size"
+          },
+          {"type": "formula", "expr": "(datum.y0+datum.y1)/2", "as": "yc"}
+        ]
+      },
+      {
+        "name": "groups",
+        "source": "nodes",
+        "transform": [
+          {
+            "type": "aggregate",
+            "groupby": ["stack", "grpId"],
+            "fields": ["size"],
+            "ops": ["sum"],
+            "as": ["total"]
+          },
+          {
+            "type": "stack",
+            "groupby": ["stack"],
+            "sort": {"field": "grpId", "order": "descending"},
+            "field": "total"
+          },
+          {"type": "formula", "expr": "scale('y', datum.y0)", "as": "scaledY0"},
+          {"type": "formula", "expr": "scale('y', datum.y1)", "as": "scaledY1"},
+          {
+            "type": "formula",
+            "expr": "datum.stack == 'stk1'",
+            "as": "rightLabel"
+          },
+          {
+            "type": "formula",
+            "expr": "datum.total/domain('y')[1]",
+            "as": "percentage"
+          }
+        ]
+      },
+      {
+        "name": "destinationNodes",
+        "source": "nodes",
+        "transform": [{"type": "filter", "expr": "datum.stack == 'stk2'"}]
+      },
+      {
+        "name": "edges",
+        "source": "nodes",
+        "transform": [
+          {"type": "filter", "expr": "datum.stack == 'stk1'"},
+          {
+            "type": "lookup",
+            "from": "destinationNodes",
+            "key": "key",
+            "fields": ["key"],
+            "as": ["target"]
+          },
+          {
+            "type": "linkpath",
+            "orient": "horizontal",
+            "shape": "diagonal",
+            "sourceY": {"expr": "scale('y', datum.yc)"},
+            "sourceX": {"expr": "scale('x', 'stk1') + bandwidth('x')"},
+            "targetY": {"expr": "scale('y', datum.target.yc)"},
+            "targetX": {"expr": "scale('x', 'stk2')"}
+          },
+          {
+            "type": "formula",
+            "expr": "range('y')[0]-scale('y', datum.size)",
+            "as": "strokeWidth"
+          },
+          {
+            "type": "formula",
+            "expr": "datum.size/domain('y')[1]",
+            "as": "percentage"
+          }
+        ]
+      }
+    ],
+    "scales": [
+      {
+        "name": "x",
+        "type": "band",
+        "range": "width",
+        "domain": ["stk1", "stk2"],
+        "paddingOuter": 0.05,
+        "paddingInner": 0.95
+      },
+      {
+        "name": "y",
+        "type": "linear",
+        "range": "height",
+        "domain": {"data": "nodes", "field": "y1"}
+      },
+      {
+        "name": "color",
+        "type": "ordinal",
+        "range": "category",
+        "domain": {"data": "rawData", "field": "stk1"}
+      },
+      {
+        "name": "stackNames",
+        "type": "ordinal",
+        "range": ["Source", "Destination"],
+        "domain": ["stk1", "stk2"]
+      }
+    ],
+    "axes": [
+      {
+        "orient": "bottom",
+        "scale": "x",
+        "encode": {
+          "labels": {
+            "update": {"text": {"scale": "stackNames", "field": "value"}}
+          }
+        }
+      },
+      {"orient": "left", "scale": "y"}
+    ],
+    "marks": [
+      {
+        "type": "path",
+        "name": "edgeMark",
+        "from": {"data": "edges"},
+        "clip": true,
+        "encode": {
+          "update": {
+            "stroke": [{"scale": "color", "field": "stk1"}],
+            "strokeWidth": {"field": "strokeWidth"},
+            "path": {"field": "path"},
+            "strokeOpacity": {
+              "signal": "(groupHover.stk1 == datum.stk1 || groupHover.stk2 == datum.stk2) ? 0.9 : 0.3"
+            },
+            "zindex": {
+              "signal": "(groupHover.stk1 == datum.stk1 || groupHover.stk2 == datum.stk2) ? 1 : 0"
+            },
+            "tooltip": {
+              "signal": "datum.stk1 + ' → ' + datum.stk2 + '    ' + format(datum.size, ',.0f') + '   (' + format(datum.percentage, '.1%') + ')'"
+            }
+          },
+          "hover": {"strokeOpacity": {"value": 1}}
+        }
+      },
+      {
+        "type": "rect",
+        "name": "groupMark",
+        "from": {"data": "groups"},
+        "encode": {
+          "enter": {
+            "fill": {"scale": "color", "field": "grpId"},
+            "width": {"scale": "x", "band": 1}
+          },
+          "update": {
+            "x": {"scale": "x", "field": "stack"},
+            "y": {"field": "scaledY0"},
+            "y2": {"field": "scaledY1"},
+            "fillOpacity": {"value": 0.6},
+            "tooltip": {
+              "signal": "datum.grpId + '   ' + format(datum.total, ',.0f') + '   (' + format(datum.percentage, '.1%') + ')'"
+            }
+          },
+          "hover": {"fillOpacity": {"value": 1}}
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "groups"},
+        "interactive": false,
+        "encode": {
+          "update": {
+            "x": {
+              "signal": "scale('x', datum.stack) + (datum.rightLabel ? bandwidth('x') + 8 : -8)"
+            },
+            "yc": {"signal": "(datum.scaledY0 + datum.scaledY1)/2"},
+            "align": {"signal": "datum.rightLabel ? 'left' : 'right'"},
+            "baseline": {"value": "middle"},
+            "fontWeight": {"value": "bold"},
+            "text": {
+              "signal": "abs(datum.scaledY0-datum.scaledY1) > 13 ? datum.grpId : ''"
+            }
+          }
+        }
+      },
+      {
+        "type": "rect",
+        "from": {"data": "nodes"},
+        "encode": {
+          "enter": {
+            "stroke": {"value": "#000"},
+            "strokeWidth": {"value": 2},
+            "width": {"scale": "x", "band": 1},
+            "x": {"scale": "x", "field": "stack"},
+            "y": {"field": "y0", "scale": "y"},
+            "y2": {"field": "y1", "scale": "y"}
+          }
+        }
+      }
+    ],
+    "signals": [
+      {
+        "name": "groupHover",
+        "value": {},
+        "on": [
+          {
+            "events": "@groupMark:mouseover",
+            "update": "{stk1:datum.stack=='stk1' && datum.grpId, stk2:datum.stack=='stk2' && datum.grpId}"
+          },
+          {"events": "mouseout", "update": "{}"}
+        ]
+      }
+    ]
+  }

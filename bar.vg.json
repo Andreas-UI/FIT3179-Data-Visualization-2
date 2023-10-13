@@ -1,17 +1,59 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
-        "url": "ACCIDENT.csv",
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ACCIDENT.csv",
         "format": {
             "type": "csv"
         }
     },
+    "params": [
+        {
+            "name": "condition_select",
+            "value": [
+                "Dry",
+                "Clear"
+            ],
+            "bind": {
+                "input": "select",
+                "name": "Select One of the Condition: ",
+                "options": [
+                    [
+                        "Dry",
+                        "Clear"
+                    ],
+                    [
+                        "Wet",
+                        "Clear"
+                    ],
+                    [
+                        "Wet",
+                        "Raining"
+                    ],
+                    [
+                        "Dry",
+                        "Strong winds"
+                    ],
+                    [
+                        "Dry",
+                        "Fog"
+                    ]
+                ],
+                "labels": [
+                    "Dry Clear",
+                    "Wet Clear",
+                    "Wet Raining",
+                    "Dry Strong winds",
+                    "Dry Fog"
+                ]
+            }
+        }
+    ],
     "transform": [
         {
             "lookup": "ACCIDENT_NO",
             "from": {
                 "data": {
-                    "url": "ROAD_SURFACE_COND.csv",
+                    "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ROAD_SURFACE_COND.csv",
                     "format": {
                         "type": "csv"
                     }
@@ -26,7 +68,7 @@
             "lookup": "ACCIDENT_NO",
             "from": {
                 "data": {
-                    "url": "ATMOSPHERIC_COND.csv",
+                    "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ATMOSPHERIC_COND.csv",
                     "format": {
                         "type": "csv"
                     }
@@ -38,24 +80,10 @@
             }
         },
         {
-            "filter": {
-                "and": [
-                    {
-                        "field": "Surface Cond Desc",
-                        "oneOf": [
-                            "Dry",
-                            "Wet"
-                        ]
-                    },
-                    {
-                        "field": "Atmosph Cond Desc",
-                        "oneOf": [
-                            "Clear",
-                            "Raining"
-                        ]
-                    }
-                ]
-            }
+            "filter": "datum['Atmosph Cond Desc'] == condition_select[1]"
+        },
+        {
+            "filter": "datum['Surface Cond Desc'] == condition_select[0]"
         },
         {
             "aggregate": [
@@ -68,7 +96,8 @@
             "groupby": [
                 "Atmosph Cond Desc",
                 "Surface Cond Desc",
-                "Accident Type Desc"
+                "Accident Type Desc",
+                "Road Geometry Desc"
             ]
         }
     ],
@@ -77,20 +106,24 @@
         "x": {
             "field": "Accident Type Desc",
             "type": "nominal",
-            "title": "Accident",
-            "sort": "-y"
+            "title": null,
+            "sort": "-y",
+            "axis": {
+                "labelAngle": -45
+            }
         },
         "y": {
             "field": "count",
             "type": "quantitative",
             "title": "Number of Accident"
         },
+        "color": {
+            "field": "Road Geometry Desc",
+            "scale": {
+                "scheme": "magma"
+            }
+        },
         "tooltip": [
-            {
-                "field": "count",
-                "type": "quantitative",
-                "title": "Count of accidents"
-            },
             {
                 "field": "Atmosph Cond Desc",
                 "type": "nominal",
@@ -100,6 +133,16 @@
                 "field": "Surface Cond Desc",
                 "type": "nominal",
                 "title": "Road Surface Condition"
+            },
+            {
+                "field": "Road Geometry Desc",
+                "type": "nominal",
+                "title": "Road Geometry"
+            },
+            {
+                "field": "count",
+                "type": "quantitative",
+                "title": "Count of accidents"
             }
         ]
     },
@@ -108,7 +151,7 @@
     "title": "Correlation Heatmap by Count of accident_id",
     "config": {
         "legend": {
-            "orient": "top"
+            "orient": "top-right"
         }
     }
 }

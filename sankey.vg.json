@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
-        "url": "ACCIDENT.csv",
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ACCIDENT.csv",
         "format": {
             "type": "csv"
         }
@@ -10,153 +10,15 @@
         {
             "aggregate": [
                 {
-                    "op": "count",
+                    "as": "count",
                     "field": "ACCIDENT_NO",
-                    "as": "count"
+                    "op": "count"
                 }
             ],
             "groupby": [
-                "Light Condition Desc",
-                "Road Geometry Desc"
+                "Road User Type Desc",
+                "Inj Level Desc"
             ]
-        }
-    ],
-    "encoding": {
-        "x": {
-            "field": "Light Condition Desc",
-            "type": "nominal",
-            "axis": {
-                "domain": true,
-                "grid": false,
-                "ticks": false,
-                "labels": true
-            },
-            "title": null
-        },
-        "y": {
-            "field": "count",
-            "type": "quantitative",
-            "axis": {
-                "domain": false,
-                "grid": false,
-                "ticks": false,
-                "labels": false
-            }
-        },
-        "opacity": {
-            "value": 1
-        },
-        "color": {
-            "title": null,
-            "field": "Road Geometry Desc",
-            "type": "nominal"
-        },
-        "order": {
-            "field": "count",
-            "type": "quantitative",
-            "sort": "descending"
-        }
-    },
-    "layer": [
-        {
-            "transform": [
-                {
-                    "window": [
-                        {
-                            "op": "sum",
-                            "field": "count",
-                            "as": "sumx"
-                        }
-                    ],
-                    "groupby": [
-                        "Light Condition Desc",
-                        "Road Geometry Desc"
-                    ]
-                }
-            ],
-            "mark": {
-                "type": "bar"
-            },
-            "encoding": {
-                "opacity": {
-                    "value": 0
-                },
-                "y": {
-                    "field": "sumx",
-                    "type": "quantitative",
-                    "stack": "zero"
-                },
-                "x": {
-                    "field": "Light Condition Desc",
-                    "type": "nominal"
-                },
-                "order": {
-                    "aggregate": "max",
-                    "field": "count",
-                    "type": "quantitative",
-                    "sort": "descending"
-                }
-            }
-        },
-        {
-            "transform": [
-                {
-                    "window": [
-                        {
-                            "op": "sum",
-                            "field": "count",
-                            "as": "sum"
-                        }
-                    ],
-                    "groupby": [
-                        "Light Condition Desc",
-                        "Road Geometry Desc"
-                    ]
-                }
-            ],
-            "mark": {
-                "type": "area",
-                "interpolate": "monotone"
-            },
-            "encoding": {
-                "y": {
-                    "field": "sum",
-                    "type": "quantitative",
-                    "stack": "zero"
-                },
-                "x": {
-                    "field": "Light Condition Desc",
-                    "type": "nominal"
-                },
-                "detail": {
-                    "field": "Road Geometry Desc",
-                    "type": "nominal"
-                },
-                "order": {
-                    "aggregate": "max",
-                    "field": "count",
-                    "type": "quantitative",
-                    "sort": "descending"
-                }
-            }
-        },
-        {
-            "mark": {
-                "type": "bar",
-                "width": {
-                    "band": 0.15
-                }
-            },
-            "encoding": {
-                "y": {
-                    "field": "count",
-                    "type": "quantitative",
-                    "stack": "zero"
-                },
-                "opacity": {
-                    "value": 0.2
-                }
-            }
         }
     ],
     "width": 600,
