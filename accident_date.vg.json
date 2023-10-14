@@ -1,0 +1,60 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ACCIDENT.csv"
+    },
+    "vconcat": [
+        {
+            "width": 480,
+            "mark": "area",
+            "encoding": {
+                "x": {
+                    "field": "ACCIDENTDATE",
+                    "type": "temporal",
+                    "scale": {
+                        "domain": {
+                            "param": "brush"
+                        }
+                    },
+                    "axis": {
+                        "title": ""
+                    }
+                },
+                "y": {
+                    "aggregate": "count",
+                    "type": "quantitative"
+                }
+            }
+        },
+        {
+            "width": 480,
+            "height": 60,
+            "mark": "area",
+            "params": [
+                {
+                    "name": "brush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ],
+            "encoding": {
+                "x": {
+                    "field": "ACCIDENTDATE",
+                    "type": "temporal"
+                },
+                "y": {
+                    "aggregate": "count",
+                    "type": "quantitative",
+                    "axis": {
+                        "tickCount": 3,
+                        "grid": false
+                    }
+                }
+            }
+        }
+    ]
+}

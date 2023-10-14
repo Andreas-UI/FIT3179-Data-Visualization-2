@@ -19,284 +19,291 @@
             "name": "table",
             "values": [
                 {
-                    "key": "0-4",
-                    "category": "Fatality",
+                    "Age Group": "0-4",
+                    "Inj Level Desc": "Fatality",
                     "value": 32
                 },
                 {
-                    "key": "0-4",
-                    "category": "Not injured",
+                    "Age Group": "0-4",
+                    "Inj Level Desc": "Not injured",
                     "value": 4167
                 },
                 {
-                    "key": "0-4",
-                    "category": "Other injury",
+                    "Age Group": "0-4",
+                    "Inj Level Desc": "Other injury",
                     "value": 1392
                 },
                 {
-                    "key": "0-4",
-                    "category": "Serious injury",
+                    "Age Group": "0-4",
+                    "Inj Level Desc": "Serious injury",
                     "value": 352
                 },
                 {
-                    "key": "13-15",
-                    "category": "Fatality",
+                    "Age Group": "13-15",
+                    "Inj Level Desc": "Fatality",
                     "value": 43
                 },
                 {
-                    "key": "13-15",
-                    "category": "Not injured",
+                    "Age Group": "13-15",
+                    "Inj Level Desc": "Not injured",
                     "value": 2800
                 },
                 {
-                    "key": "13-15",
-                    "category": "Other injury",
+                    "Age Group": "13-15",
+                    "Inj Level Desc": "Other injury",
                     "value": 2436
                 },
                 {
-                    "key": "13-15",
-                    "category": "Serious injury",
+                    "Age Group": "13-15",
+                    "Inj Level Desc": "Serious injury",
                     "value": 789
                 },
                 {
-                    "key": "16-17",
-                    "category": "Fatality",
+                    "Age Group": "16-17",
+                    "Inj Level Desc": "Fatality",
                     "value": 82
                 },
                 {
-                    "key": "16-17",
-                    "category": "Not injured",
+                    "Age Group": "16-17",
+                    "Inj Level Desc": "Not injured",
                     "value": 3387
                 },
                 {
-                    "key": "16-17",
-                    "category": "Other injury",
+                    "Age Group": "16-17",
+                    "Inj Level Desc": "Other injury",
                     "value": 2847
                 },
                 {
-                    "key": "16-17",
-                    "category": "Serious injury",
+                    "Age Group": "16-17",
+                    "Inj Level Desc": "Serious injury",
                     "value": 1165
                 },
                 {
-                    "key": "17-21",
-                    "category": "Fatality",
+                    "Age Group": "17-21",
+                    "Inj Level Desc": "Fatality",
                     "value": 333
                 },
                 {
-                    "key": "17-21",
-                    "category": "Not injured",
+                    "Age Group": "17-21",
+                    "Inj Level Desc": "Not injured",
                     "value": 16198
                 },
                 {
-                    "key": "17-21",
-                    "category": "Other injury",
+                    "Age Group": "17-21",
+                    "Inj Level Desc": "Other injury",
                     "value": 15199
                 },
                 {
-                    "key": "17-21",
-                    "category": "Serious injury",
+                    "Age Group": "17-21",
+                    "Inj Level Desc": "Serious injury",
                     "value": 5952
                 },
                 {
-                    "key": "22-25",
-                    "category": "Fatality",
+                    "Age Group": "22-25",
+                    "Inj Level Desc": "Fatality",
                     "value": 226
                 },
                 {
-                    "key": "22-25",
-                    "category": "Not injured",
+                    "Age Group": "22-25",
+                    "Inj Level Desc": "Not injured",
                     "value": 11662
                 },
                 {
-                    "key": "22-25",
-                    "category": "Other injury",
+                    "Age Group": "22-25",
+                    "Inj Level Desc": "Other injury",
                     "value": 10922
                 },
                 {
-                    "key": "22-25",
-                    "category": "Serious injury",
+                    "Age Group": "22-25",
+                    "Inj Level Desc": "Serious injury",
                     "value": 4498
                 },
                 {
-                    "key": "26-29",
-                    "category": "Fatality",
+                    "Age Group": "26-29",
+                    "Inj Level Desc": "Fatality",
                     "value": 182
                 },
                 {
-                    "key": "26-29",
-                    "category": "Not injured",
+                    "Age Group": "26-29",
+                    "Inj Level Desc": "Not injured",
                     "value": 9815
                 },
                 {
-                    "key": "26-29",
-                    "category": "Other injury",
+                    "Age Group": "26-29",
+                    "Inj Level Desc": "Other injury",
                     "value": 9221
                 },
                 {
-                    "key": "26-29",
-                    "category": "Serious injury",
+                    "Age Group": "26-29",
+                    "Inj Level Desc": "Serious injury",
                     "value": 3638
                 },
                 {
-                    "key": "30-39",
-                    "category": "Fatality",
+                    "Age Group": "30-39",
+                    "Inj Level Desc": "Fatality",
                     "value": 352
                 },
                 {
-                    "key": "30-39",
-                    "category": "Not injured",
+                    "Age Group": "30-39",
+                    "Inj Level Desc": "Not injured",
                     "value": 20989
                 },
                 {
-                    "key": "30-39",
-                    "category": "Other injury",
+                    "Age Group": "30-39",
+                    "Inj Level Desc": "Other injury",
                     "value": 18598
                 },
                 {
-                    "key": "30-39",
-                    "category": "Serious injury",
+                    "Age Group": "30-39",
+                    "Inj Level Desc": "Serious injury",
                     "value": 7120
                 },
                 {
-                    "key": "40-49",
-                    "category": "Fatality",
+                    "Age Group": "40-49",
+                    "Inj Level Desc": "Fatality",
                     "value": 281
                 },
                 {
-                    "key": "40-49",
-                    "category": "Not injured",
+                    "Age Group": "40-49",
+                    "Inj Level Desc": "Not injured",
                     "value": 16757
                 },
                 {
-                    "key": "40-49",
-                    "category": "Other injury",
+                    "Age Group": "40-49",
+                    "Inj Level Desc": "Other injury",
                     "value": 14144
                 },
                 {
-                    "key": "40-49",
-                    "category": "Serious injury",
+                    "Age Group": "40-49",
+                    "Inj Level Desc": "Serious injury",
                     "value": 5164
                 },
                 {
-                    "key": "5-12",
-                    "category": "Fatality",
+                    "Age Group": "5-12",
+                    "Inj Level Desc": "Fatality",
                     "value": 43
                 },
                 {
-                    "key": "5-12",
-                    "category": "Not injured",
+                    "Age Group": "5-12",
+                    "Inj Level Desc": "Not injured",
                     "value": 5981
                 },
                 {
-                    "key": "5-12",
-                    "category": "Other injury",
+                    "Age Group": "5-12",
+                    "Inj Level Desc": "Other injury",
                     "value": 4358
                 },
                 {
-                    "key": "5-12",
-                    "category": "Serious injury",
+                    "Age Group": "5-12",
+                    "Inj Level Desc": "Serious injury",
                     "value": 1171
                 },
                 {
-                    "key": "50-59",
-                    "category": "Fatality",
+                    "Age Group": "50-59",
+                    "Inj Level Desc": "Fatality",
                     "value": 194
                 },
                 {
-                    "key": "50-59",
-                    "category": "Not injured",
+                    "Age Group": "50-59",
+                    "Inj Level Desc": "Not injured",
                     "value": 11363
                 },
                 {
-                    "key": "50-59",
-                    "category": "Other injury",
+                    "Age Group": "50-59",
+                    "Inj Level Desc": "Other injury",
                     "value": 9475
                 },
                 {
-                    "key": "50-59",
-                    "category": "Serious injury",
+                    "Age Group": "50-59",
+                    "Inj Level Desc": "Serious injury",
                     "value": 3519
                 },
                 {
-                    "key": "60-64",
-                    "category": "Fatality",
+                    "Age Group": "60-64",
+                    "Inj Level Desc": "Fatality",
                     "value": 99
                 },
                 {
-                    "key": "60-64",
-                    "category": "Not injured",
+                    "Age Group": "60-64",
+                    "Inj Level Desc": "Not injured",
                     "value": 3482
                 },
                 {
-                    "key": "60-64",
-                    "category": "Other injury",
+                    "Age Group": "60-64",
+                    "Inj Level Desc": "Other injury",
                     "value": 2829
                 },
                 {
-                    "key": "60-64",
-                    "category": "Serious injury",
+                    "Age Group": "60-64",
+                    "Inj Level Desc": "Serious injury",
                     "value": 1241
                 },
                 {
-                    "key": "64-69",
-                    "category": "Fatality",
+                    "Age Group": "64-69",
+                    "Inj Level Desc": "Fatality",
                     "value": 87
                 },
                 {
-                    "key": "64-69",
-                    "category": "Not injured",
+                    "Age Group": "64-69",
+                    "Inj Level Desc": "Not injured",
                     "value": 2467
                 },
                 {
-                    "key": "64-69",
-                    "category": "Other injury",
+                    "Age Group": "64-69",
+                    "Inj Level Desc": "Other injury",
                     "value": 2117
                 },
                 {
-                    "key": "64-69",
-                    "category": "Serious injury",
+                    "Age Group": "64-69",
+                    "Inj Level Desc": "Serious injury",
                     "value": 939
                 },
                 {
-                    "key": "70+",
-                    "category": "Fatality",
+                    "Age Group": "70+",
+                    "Inj Level Desc": "Fatality",
                     "value": 306
                 },
                 {
-                    "key": "70+",
-                    "category": "Not injured",
+                    "Age Group": "70+",
+                    "Inj Level Desc": "Not injured",
                     "value": 4374
                 },
                 {
-                    "key": "70+",
-                    "category": "Other injury",
+                    "Age Group": "70+",
+                    "Inj Level Desc": "Other injury",
                     "value": 4920
                 },
                 {
-                    "key": "70+",
-                    "category": "Serious injury",
+                    "Age Group": "70+",
+                    "Inj Level Desc": "Serious injury",
                     "value": 2823
                 },
                 {
-                    "key": "unknown",
-                    "category": "Fatality",
+                    "Age Group": "unknown",
+                    "Inj Level Desc": "Fatality",
                     "value": 7
                 },
                 {
-                    "key": "unknown",
-                    "category": "Not injured",
+                    "Age Group": "unknown",
+                    "Inj Level Desc": "Not injured",
                     "value": 12720
                 },
                 {
-                    "key": "unknown",
-                    "category": "Other injury",
+                    "Age Group": "unknown",
+                    "Inj Level Desc": "Other injury",
                     "value": 2797
                 },
                 {
-                    "key": "unknown",
-                    "category": "Serious injury",
+                    "Age Group": "unknown",
+                    "Inj Level Desc": "Serious injury",
                     "value": 990
+                }
+            ],
+            "transform": [
+                {
+                    "type": "formula",
+                    "expr": "log(datum.value)",
+                    "as": "value"
                 }
             ]
         },
@@ -307,7 +314,7 @@
                 {
                     "type": "aggregate",
                     "groupby": [
-                        "key"
+                        "Age Group"
                     ]
                 }
             ]
@@ -323,7 +330,7 @@
             "padding": 0.5,
             "domain": {
                 "data": "table",
-                "field": "key"
+                "field": "Age Group"
             }
         },
         {
@@ -345,7 +352,7 @@
             "type": "ordinal",
             "domain": {
                 "data": "table",
-                "field": "category"
+                "field": "Inj Level Desc"
             },
             "range": "category"
         }
@@ -389,7 +396,7 @@
                     "data": "table",
                     "name": "facet",
                     "groupby": [
-                        "category"
+                        "Inj Level Desc"
                     ]
                 }
             },
@@ -406,21 +413,21 @@
                                 "value": "linear-closed"
                             },
                             "x": {
-                                "signal": "scale('radial', datum.value) * cos(scale('angular', datum.key))"
+                                "signal": "scale('radial', datum.value) * cos(scale('angular', datum['Age Group']))"
                             },
                             "y": {
-                                "signal": "scale('radial', datum.value) * sin(scale('angular', datum.key))"
+                                "signal": "scale('radial', datum.value) * sin(scale('angular', datum['Age Group']))"
                             },
                             "stroke": {
                                 "scale": "color",
-                                "field": "category"
+                                "field": "Inj Level Desc"
                             },
                             "strokeWidth": {
                                 "value": 1
                             },
                             "fill": {
                                 "scale": "color",
-                                "field": "category"
+                                "field": "Inj Level Desc"
                             },
                             "fillOpacity": {
                                 "value": 0.1
@@ -446,10 +453,10 @@
                         "value": 0
                     },
                     "x2": {
-                        "signal": "radius * cos(scale('angular', datum.key))"
+                        "signal": "radius * cos(scale('angular', datum['Age Group']))"
                     },
                     "y2": {
-                        "signal": "radius * sin(scale('angular', datum.key))"
+                        "signal": "radius * sin(scale('angular', datum['Age Group']))"
                     },
                     "stroke": {
                         "value": "lightgray"
@@ -470,17 +477,17 @@
             "encode": {
                 "enter": {
                     "x": {
-                        "signal": "(radius + 5) * cos(scale('angular', datum.key))"
+                        "signal": "(radius + 5) * cos(scale('angular', datum['Age Group']))"
                     },
                     "y": {
-                        "signal": "(radius + 5) * sin(scale('angular', datum.key))"
+                        "signal": "(radius + 5) * sin(scale('angular', datum['Age Group']))"
                     },
                     "text": {
-                        "field": "key"
+                        "field": "Age Group"
                     },
                     "align": [
                         {
-                            "test": "abs(scale('angular', datum.key)) > PI / 2",
+                            "test": "abs(scale('angular', datum['Age Group'])) > PI / 2",
                             "value": "right"
                         },
                         {
@@ -489,11 +496,11 @@
                     ],
                     "baseline": [
                         {
-                            "test": "scale('angular', datum.key) > 0",
+                            "test": "scale('angular', datum['Age Group']) > 0",
                             "value": "top"
                         },
                         {
-                            "test": "scale('angular', datum.key) == 0",
+                            "test": "scale('angular', datum['Age Group']) == 0",
                             "value": "middle"
                         },
                         {

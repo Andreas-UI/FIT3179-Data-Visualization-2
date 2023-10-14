@@ -1,0 +1,349 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/VEHICLE.csv",
+        "format": {
+            "type": "csv"
+        }
+    },
+    "params": [
+        {
+            "name": "vehicle_select",
+            "value": "Car",
+            "bind": {
+                "input": "select",
+                "name": "Choose Vehicle Type",
+                "options": [
+                    "Car",
+                    "Station Wagon",
+                    "Motor Cycle",
+                    "Utility",
+                    "Bicycle",
+                    "Panel Van",
+                    "Taxi",
+                    "Motor Scooter",
+                    "Prime Mover (No of Trailers Unknown)",
+                    "Tram",
+                    "Bus/Coach",
+                    "Moped",
+                    "Rigid Truck(Weight Unknown)",
+                    "Mini Bus(9-13 seats)",
+                    "Unknown",
+                    "Other Vehicle",
+                    "Train",
+                    "Horse (ridden or drawn)",
+                    "Prime Mover Only",
+                    "Heavy Vehicle (Rigid) > 4.5 Tonnes",
+                    "Light Commercial Vehicle (Rigid) <= 4.5 Tonnes GVM",
+                    "Prime Mover - Single Trailer"
+                ],
+                "labels": [
+                    "Car",
+                    "Station Wagon",
+                    "Motor Cycle",
+                    "Utility",
+                    "Bicycle",
+                    "Panel Van",
+                    "Taxi",
+                    "Motor Scooter",
+                    "Prime Mover (No of Trailers Unknown)",
+                    "Tram",
+                    "Bus/Coach",
+                    "Moped",
+                    "Rigid Truck(Weight Unknown)",
+                    "Mini Bus(9-13 seats)",
+                    "Unknown",
+                    "Other Vehicle",
+                    "Train",
+                    "Horse (ridden or drawn)",
+                    "Prime Mover Only",
+                    "Heavy Vehicle (Rigid) > 4.5 Tonnes",
+                    "Light Commercial Vehicle (Rigid) <= 4.5 Tonnes GVM",
+                    "Prime Mover - Single Trailer"
+                ]
+            }
+        }
+    ],
+    "transform": [
+        {
+            "filter": "datum['Vehicle Type Desc'] == vehicle_select"
+        }
+    ],
+    "columns": 2,
+    "concat": [
+        {
+            "transform": [
+                {
+                    "filter": {
+                        "field": "VEHICLE_BODY_STYLE",
+                        "valid": false
+                    }
+                },
+                {
+                    "aggregate": [
+                        {
+                            "op": "count",
+                            "as": "count"
+                        }
+                    ],
+                    "groupby": [
+                        "VEHICLE_BODY_STYLE"
+                    ]
+                },
+                {
+                    "window": [
+                        {
+                            "op": "rank",
+                            "as": "rank"
+                        }
+                    ],
+                    "sort": [
+                        {
+                            "field": "count",
+                            "order": "descending"
+                        }
+                    ]
+                },
+                {
+                    "filter": {
+                        "field": "rank",
+                        "lte": 5
+                    }
+                }
+            ],
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "VEHICLE_BODY_STYLE",
+                    "type": "nominal",
+                    "sort": "-y",
+                    "axis": {
+                        "labelAngle": 0
+                    },
+                    "scale": {
+                        "type": "band",
+                        "paddingInner": 0.2,
+                        "paddingOuter": 0.2
+                    }
+                },
+                "y": {
+                    "field": "count",
+                    "type": "quantitative"
+                }
+            },
+            "width": 300,
+            "height": 300
+        },
+        {
+            "mark": "circle",
+            "encoding": {
+                "x": {
+                    "field": "VEHICLE_POWER",
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "LEVEL_OF_DAMAGE",
+                    "type": "quantitative"
+                }
+            },
+            "width": 300,
+            "height": 300
+        },
+        {
+            "transform": [
+                {
+                    "lookup": "ACCIDENT_NO",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/PERSON.csv",
+                            "format": {
+                                "type": "csv"
+                            }
+                        },
+                        "key": "ACCIDENT_NO",
+                        "fields": [
+                            "SEATING_POSITION",
+                            "Inj Level Desc"
+                        ]
+                    }
+                }
+            ],
+            "mark": {
+                "type": "arc",
+                "innerRadius": 50
+            },
+            "encoding": {
+                "theta": {
+                    "aggregate": "count",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "Inj Level Desc",
+                    "type": "nominal"
+                }
+            },
+            "width": 300,
+            "height": 300
+        },
+        {
+            "mark": "circle",
+            "encoding": {
+                "x":{
+                    "field": "FUEL_TYPE",
+                    "type": "nominal"
+                },
+                "y": {
+                    "field": "CAUGHT_FIRE",
+                    "type": "nominal"
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "lookup": "ACCIDENT_NO",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/PERSON.csv",
+                            "format": {
+                                "type": "csv"
+                            }
+                        },
+                        "key": "ACCIDENT_NO",
+                        "fields": [
+                            "SEATING_POSITION",
+                            "Inj Level Desc"
+                        ]
+                    }
+                },
+                {
+                    "joinaggregate": [
+                        {
+                            "op": "count",
+                            "field": "SEATING_POSITION",
+                            "as": "TotalOrigin"
+                        }
+                    ]
+                },
+                {
+                    "joinaggregate": [
+                        {
+                            "op": "count",
+                            "field": "SEATING_POSITION",
+                            "as": "TotalOriginGrouped"
+                        }
+                    ],
+                    "groupby": [
+                        "SEATING_POSITION"
+                    ]
+                },
+                {
+                    "calculate": "round(datum.TotalOriginGrouped/datum.TotalOrigin * 100)",
+                    "as": "PercentOfTotal"
+                },
+                {
+                    "aggregate": [
+                        {
+                            "op": "min",
+                            "field": "PercentOfTotal",
+                            "as": "Percent"
+                        }
+                    ],
+                    "groupby": [
+                        "SEATING_POSITION"
+                    ]
+                },
+                {
+                    "calculate": "sequence(1,101)",
+                    "as": "Sequence"
+                },
+                {
+                    "flatten": [
+                        "Sequence"
+                    ]
+                },
+                {
+                    "calculate": "if(datum.Sequence <= datum.Percent, datum.SEATING_POSITION,'_blank')",
+                    "as": "Plot"
+                },
+                {
+                    "calculate": "ceil (datum.Sequence / 10)",
+                    "as": "row"
+                },
+                {
+                    "calculate": "datum.Sequence - datum.row * 10",
+                    "as": "col"
+                }
+            ],
+            "facet": {
+                "column": {
+                    "field": "SEATING_POSITION",
+                    "header": {
+                        "labelOrient": "bottom"
+                    }
+                }
+            },
+            "spec": {
+                "layer": [
+                    {
+                        "mark": {
+                            "type": "square",
+                            "filled": true,
+                            "tooltip": true,
+                            "stroke": "#9e9b9b",
+                            "strokeWidth": 0.7
+                        },
+                        "encoding": {
+                            "x": {
+                                "field": "col",
+                                "type": "ordinal",
+                                "axis": null
+                            },
+                            "y": {
+                                "field": "row",
+                                "type": "ordinal",
+                                "axis": null,
+                                "sort": "-y"
+                            },
+                            "color": {
+                                "condition": {
+                                    "test": "datum.Plot == '_blank'",
+                                    "value": "#e6e3e3"
+                                },
+                                "scale": {
+                                    "scheme": "set1"
+                                },
+                                "field": "Plot",
+                                "type": "nominal",
+                                "legend": null
+                            },
+                            "size": {
+                                "value": 241
+                            },
+                            "tooltip": [
+                                {
+                                    "field": "SEATING_POSITION",
+                                    "type": "nominal"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "mark": {"type": "text", "fontSize": 30, "fontWeight": "bold"},
+                        "encoding": {
+                          "yOffset": {"value": 30},
+                          "text": {
+                            "condition": {
+                              "test": "datum.Sequence == 1",
+                              "value": {"expr": "datum.TotalOriginGrouped + '%'"}
+                            }
+                          },
+                          "color": {"scale": {"scheme": "set1"}, "field": "Plot"}
+                        }
+                      }
+                ]
+            }
+            
+        }
+    ]
+}

@@ -1,0 +1,291 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "title": "Serious Injuries",
+  "width": 300,
+  "height": 300,
+  "padding": 50,
+  "signals": [
+    {
+      "name": "radius",
+      "update": "width / 2"
+    }
+  ],
+  "data": [
+    {
+      "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/PERSON.csv",
+      "format": {
+        "type": "csv"
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum['Inj Level Desc'] == 'Serious injury'"
+        },
+        {
+          "type": "aggregate",
+          "groupby": [
+            "Road User Type Desc",
+            "Inj Level Desc"
+          ],
+          "ops": [
+            "count"
+          ],
+          "as": [
+            "value"
+          ]
+        },
+        {
+          "type": "formula",
+          "expr": "log(datum.value)",
+          "as": "normalized_value"
+        }
+      ],
+      "name": "table"
+    },
+    {
+      "name": "keys",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "Road User Type Desc"
+          ]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "angular",
+      "type": "point",
+      "range": {
+        "signal": "[-PI, PI]"
+      },
+      "padding": 0.5,
+      "domain": {
+        "data": "table",
+        "field": "Road User Type Desc"
+      }
+    },
+    {
+      "name": "radial",
+      "type": "linear",
+      "range": {
+        "signal": "[0, radius]"
+      },
+      "zero": true,
+      "nice": false,
+      "domain": {
+        "data": "table",
+        "field": "normalized_value"
+      },
+      "domainMin": 0
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "table",
+        "field": "Inj Level Desc"
+      },
+      "range": "category"
+    }
+  ],
+  "encode": {
+    "enter": {
+      "x": {
+        "signal": "radius"
+      },
+      "y": {
+        "signal": "radius"
+      }
+    }
+  },
+  "marks": [
+    {
+      "type": "group",
+      "name": "categories",
+      "zindex": 1,
+      "from": {
+        "facet": {
+          "data": "table",
+          "name": "facet",
+          "groupby": [
+            "Inj Level Desc"
+          ]
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "name": "category-line",
+          "from": {
+            "data": "facet"
+          },
+          "encode": {
+            "enter": {
+              "interpolate": {
+                "value": "linear-closed"
+              },
+              "x": {
+                "signal": "scale('radial', datum.normalized_value) * cos(scale('angular', datum['Road User Type Desc']))"
+              },
+              "y": {
+                "signal": "scale('radial', datum.normalized_value) * sin(scale('angular', datum['Road User Type Desc']))"
+              },
+              "stroke": {
+                "scale": "color",
+                "field": "Inj Level Desc"
+              },
+              "strokeWidth": {
+                "value": 1
+              },
+              "fill": {
+                "scale": "color",
+                "field": "Inj Level Desc"
+              },
+              "fillOpacity": {
+                "value": 0.1
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "name": "value-text",
+          "from": {
+            "data": "category-line"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "signal": "datum.x"
+              },
+              "y": {
+                "signal": "datum.y"
+              },
+              "text": {
+                "signal": "datum.datum.value"
+              },
+              "align": {
+                "value": "center"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "fill": {
+                "value": "black"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "name": "radial-grid",
+      "from": {
+        "data": "keys"
+      },
+      "zindex": 0,
+      "encode": {
+        "enter": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "value": 0
+          },
+          "x2": {
+            "signal": "radius * cos(scale('angular', datum['Road User Type Desc']))"
+          },
+          "y2": {
+            "signal": "radius * sin(scale('angular', datum['Road User Type Desc']))"
+          },
+          "stroke": {
+            "value": "lightgray"
+          },
+          "strokeWidth": {
+            "value": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "name": "key-label",
+      "from": {
+        "data": "keys"
+      },
+      "zindex": 1,
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "(radius + 5) * cos(scale('angular', datum['Road User Type Desc']))"
+          },
+          "y": {
+            "signal": "(radius + 5) * sin(scale('angular', datum['Road User Type Desc']))"
+          },
+          "text": {
+            "field": "Road User Type Desc"
+          },
+          "align": [
+            {
+              "test": "abs(scale('angular', datum['Road User Type Desc'])) > PI / 2",
+              "value": "right"
+            },
+            {
+              "value": "left"
+            }
+          ],
+          "baseline": [
+            {
+              "test": "scale('angular', datum['Road User Type Desc']) > 0",
+              "value": "top"
+            },
+            {
+              "test": "scale('angular', datum['Road User Type Desc']) == 0",
+              "value": "middle"
+            },
+            {
+              "value": "bottom"
+            }
+          ],
+          "fill": {
+            "value": "black"
+          },
+          "fontWeight": {
+            "value": "bold"
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "outer-line",
+      "from": {
+        "data": "radial-grid"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "linear-closed"
+          },
+          "x": {
+            "field": "x2"
+          },
+          "y": {
+            "field": "y2"
+          },
+          "stroke": {
+            "value": "lightgray"
+          },
+          "strokeWidth": {
+            "value": 1
+          }
+        }
+      }
+    }
+  ]
+}
