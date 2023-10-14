@@ -6,7 +6,7 @@
         "fontSize": 14
       },
     "data": {
-        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ACCIDENT.csv"
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/dataset/ACCIDENT.csv"
     },
     "vconcat": [
         {

@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
-        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ATMOSPHERIC_COND.csv",
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/dataset/ATMOSPHERIC_COND.csv",
         "format": {
             "type": "csv"
         }
@@ -11,7 +11,7 @@
             "lookup": "ACCIDENT_NO",
             "from": {
                 "data": {
-                    "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ROAD_SURFACE_COND.csv",
+                    "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/dataset/ROAD_SURFACE_COND.csv",
                     "format": {
                         "type": "csv"
                     }
