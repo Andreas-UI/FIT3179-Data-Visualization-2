@@ -120,7 +120,7 @@
         "color": {
             "field": "Road Geometry Desc",
             "scale": {
-                "scheme": "magma"
+                "scheme": "inferno"
             }
         },
         "tooltip": [
@@ -146,9 +146,9 @@
             }
         ]
     },
-    "width": 600,
-    "height": 300,
-    "title": "Correlation Heatmap by Count of accident_id",
+    "width": "container",
+    "height": "container",
+    "title": "Accident Event in Road Geometry",
     "config": {
         "legend": {
             "orient": "top-right"

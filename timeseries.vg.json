@@ -1,0 +1,102 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+        "text": "A Five-Year History of Accidents (2000-2005)",
+        "anchor": "middle",
+        "fontSize": 14
+      },
+    "data": {
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/ACCIDENT.csv"
+    },
+    "vconcat": [
+        {
+            "width": "container",
+            "height": 384,
+            "layer": [
+                {
+                    "mark": "line",
+                    "encoding": {
+                        "x": {
+                            "field": "ACCIDENTDATE",
+                            "type": "temporal",
+                            "scale": {
+                                "domain": {
+                                    "param": "brush"
+                                }
+                            },
+                            "axis": {
+                                "title": ""
+                            }
+                        },
+                        "y": {
+                            "aggregate": "count",
+                            "type": "quantitative"
+                        },
+                        "color": {
+                            "value": "#e11d48"
+                        }
+                    }
+                },
+                {
+                    "mark": "area",
+                    "encoding": {
+                        "x": {
+                            "field": "ACCIDENTDATE",
+                            "type": "temporal",
+                            "scale": {
+                                "domain": {
+                                    "param": "brush"
+                                }
+                            },
+                            "axis": {
+                                "title": ""
+                            }
+                        },
+                        "y": {
+                            "aggregate": "count",
+                            "type": "quantitative"
+                        },
+                        "opacity":{"value": 0.3},
+                        "color": {
+                            "value": "#e11d48"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "width": "container",
+            "height": 96,
+            "mark": "area",
+            "params": [
+                {
+                    "name": "brush",
+                    "value": {"ACCIDENTDATE":[1033839629581,1041411725581]},
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ],
+            "encoding": {
+                "x": {
+                    "field": "ACCIDENTDATE",
+                    "type": "temporal"
+                },
+                "y": {
+                    "aggregate": "count",
+                    "type": "quantitative",
+                    "axis": {
+                        "tickCount": 3,
+                        "grid": false
+                    }
+                },
+                "color": {
+                    "value": "#e11d48"
+                }
+            }
+        }
+    ]
+}

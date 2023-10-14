@@ -1,13 +1,21 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "title": "Other Injuries",
-  "width": 300,
-  "height": 300,
-  "padding": 50,
+  "title": {
+    "text": "Other Injuries Accident",
+    "anchor": "middle",
+    "fontSize": 14,
+    "dy": -8,
+    "dx": {
+      "signal": "-width/4"
+    }
+  },
+  "width": 280,
+  "height": 280,
+  "autosize": "none",
   "signals": [
     {
       "name": "radius",
-      "update": "width / 2"
+      "update": "90"
     }
   ],
   "data": [
@@ -35,8 +43,20 @@
           ]
         },
         {
+          "type": "joinaggregate",
+          "ops": [
+            "sum"
+          ],
+          "as": [
+            "TotalValue"
+          ],
+          "fields": [
+            "value"
+          ]
+        },
+        {
           "type": "formula",
-          "expr": "log(datum.value)",
+          "expr": "datum.value/datum.TotalValue",
           "as": "normalized_value"
         }
       ],
@@ -76,29 +96,19 @@
       },
       "zero": true,
       "nice": false,
-      "domain": {
-        "data": "table",
-        "field": "normalized_value"
-      },
-      "domainMin": 0
-    },
-    {
-      "name": "color",
-      "type": "ordinal",
-      "domain": {
-        "data": "table",
-        "field": "Inj Level Desc"
-      },
-      "range": "category"
+      "domain": [
+        0,
+        0.7
+      ]
     }
   ],
   "encode": {
     "enter": {
       "x": {
-        "signal": "radius"
+        "signal": "width/2"
       },
       "y": {
-        "signal": "radius"
+        "signal": "height/2 + 20"
       }
     }
   },
@@ -135,15 +145,13 @@
                 "signal": "scale('radial', datum.normalized_value) * sin(scale('angular', datum['Road User Type Desc']))"
               },
               "stroke": {
-                "scale": "color",
-                "field": "Inj Level Desc"
+                "value": "#B82E2E"
               },
               "strokeWidth": {
-                "value": 1
+                "value": 1.5
               },
               "fill": {
-                "scale": "color",
-                "field": "Inj Level Desc"
+                "value": "#B82E2E"
               },
               "fillOpacity": {
                 "value": 0.1
@@ -160,22 +168,25 @@
           "encode": {
             "enter": {
               "x": {
-                "signal": "datum.x"
+                "signal": "datum.x + 14 * cos(scale('angular', datum.datum['Road User Type Desc']))"
               },
               "y": {
-                "signal": "datum.y"
+                "signal": "datum.y + 14 * cos(scale('angular', datum.datum['Road User Type Desc']))"
               },
               "text": {
-                "signal": "datum.datum.value"
+                "signal": "format(datum.datum.normalized_value, '.1%')"
               },
               "align": {
-                "value": "center"
+                "value": "left"
               },
               "baseline": {
-                "value": "middle"
+                "value": "bottom"
+              },
+              "fontWeight": {
+                "value": "bold"
               },
               "fill": {
-                "value": "black"
+                "value": "#B82E2E"
               }
             }
           }
@@ -222,21 +233,27 @@
       "encode": {
         "enter": {
           "x": {
-            "signal": "(radius + 5) * cos(scale('angular', datum['Road User Type Desc']))"
+            "signal": "(radius + 11) * cos(scale('angular', datum['Road User Type Desc']))"
           },
-          "y": {
-            "signal": "(radius + 5) * sin(scale('angular', datum['Road User Type Desc']))"
-          },
+          "y": [
+            {
+              "test": "sin(scale('angular', datum['Road User Type Desc'])) > 0",
+              "signal": "5 + (radius + 11) * sin(scale('angular', datum['Road User Type Desc']))"
+            },
+            {
+              "test": "sin(scale('angular', datum['Road User Type Desc'])) < 0",
+              "signal": "-5 + (radius + 11) * sin(scale('angular', datum['Road User Type Desc']))"
+            },
+            {
+              "signal": "(radius + 11) * sin(scale('angular', datum['Road User Type Desc']))"
+            }
+          ],
           "text": {
             "field": "Road User Type Desc"
           },
           "align": [
             {
-              "test": "abs(scale('angular', datum['Road User Type Desc'])) > PI / 2",
-              "value": "right"
-            },
-            {
-              "value": "left"
+              "value": "center"
             }
           ],
           "baseline": [
@@ -255,8 +272,112 @@
           "fill": {
             "value": "black"
           },
-          "fontWeight": {
-            "value": "bold"
+          "fontSize": {
+            "value": 12
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "twenty-line",
+      "from": {
+        "data": "keys"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "linear-closed"
+          },
+          "x": {
+            "signal": "0.2 * radius * cos(scale('angular', datum['Road User Type Desc']))"
+          },
+          "y": {
+            "signal": "0.2 * radius * sin(scale('angular', datum['Road User Type Desc']))"
+          },
+          "stroke": {
+            "value": "lightgray"
+          },
+          "strokeWidth": {
+            "value": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "fourty-line",
+      "from": {
+        "data": "keys"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "linear-closed"
+          },
+          "x": {
+            "signal": "0.4 * radius * cos(scale('angular', datum['Road User Type Desc']))"
+          },
+          "y": {
+            "signal": "0.4 * radius * sin(scale('angular', datum['Road User Type Desc']))"
+          },
+          "stroke": {
+            "value": "lightgray"
+          },
+          "strokeWidth": {
+            "value": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "sixty-line",
+      "from": {
+        "data": "keys"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "linear-closed"
+          },
+          "x": {
+            "signal": "0.6 * radius * cos(scale('angular', datum['Road User Type Desc']))"
+          },
+          "y": {
+            "signal": "0.6 * radius * sin(scale('angular', datum['Road User Type Desc']))"
+          },
+          "stroke": {
+            "value": "lightgray"
+          },
+          "strokeWidth": {
+            "value": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "eighty-line",
+      "from": {
+        "data": "keys"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "linear-closed"
+          },
+          "x": {
+            "signal": "0.8 * radius * cos(scale('angular', datum['Road User Type Desc']))"
+          },
+          "y": {
+            "signal": "0.8 * radius * sin(scale('angular', datum['Road User Type Desc']))"
+          },
+          "stroke": {
+            "value": "lightgray"
+          },
+          "strokeWidth": {
+            "value": 1
           }
         }
       }

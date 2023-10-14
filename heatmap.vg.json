@@ -46,12 +46,14 @@
                 },
                 "y": {
                     "field": "Atmosph Cond Desc",
-                    "title": "Atmospheric Condition"
+                    "title": "Atmospheric Condition",
+                    "axis": {
+                        "labelAngle": 270
+                    }
                 },
                 "color": {
                     "field": "count",
                     "type": "quantitative",
-                    "title": "Count of accidents",
                     "scale": {
                         "scheme": "goldred"
                     }
@@ -109,12 +111,14 @@
             }
         }
     ],
-    "width": 600,
-    "height": 300,
-    "title": "Correlation Heatmap by Count of accident_id",
+    "width": "container",
+    "height": "container",
+    "title": "Correlation between Atmospheric and Road Surface Condition",
     "config": {
         "legend": {
-            "orient": "top"
+            "orient": "bottom",
+            "gradientLength": 480,
+            "title": null
         }
     }
 }

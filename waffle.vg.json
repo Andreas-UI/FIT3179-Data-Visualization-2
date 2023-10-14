@@ -1,0 +1,221 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/VEHICLE.csv",
+        "format": {
+            "type": "csv"
+        }
+    },
+    "params": [
+        {
+            "name": "vehicle_select",
+            "value": "Car",
+            "bind": {
+                "input": "select",
+                "name": "Vehicle Type : ",
+                "options": [
+                    "Car",
+                    "Station Wagon",
+                    "Motor Cycle",
+                    "Utility",
+                    "Bicycle",
+                    "Panel Van",
+                    "Taxi",
+                    "Motor Scooter",
+                    "Prime Mover (No of Trailers Unknown)",
+                    "Tram",
+                    "Bus/Coach",
+                    "Moped",
+                    "Rigid Truck(Weight Unknown)",
+                    "Mini Bus(9-13 seats)",
+                    "Unknown",
+                    "Other Vehicle",
+                    "Train",
+                    "Horse (ridden or drawn)",
+                    "Prime Mover Only",
+                    "Heavy Vehicle (Rigid) > 4.5 Tonnes",
+                    "Light Commercial Vehicle (Rigid) <= 4.5 Tonnes GVM",
+                    "Prime Mover - Single Trailer"
+                ],
+                "labels": [
+                    "Car",
+                    "Station Wagon",
+                    "Motor Cycle",
+                    "Utility",
+                    "Bicycle",
+                    "Panel Van",
+                    "Taxi",
+                    "Motor Scooter",
+                    "Prime Mover (No of Trailers Unknown)",
+                    "Tram",
+                    "Bus/Coach",
+                    "Moped",
+                    "Rigid Truck(Weight Unknown)",
+                    "Mini Bus(9-13 seats)",
+                    "Unknown",
+                    "Other Vehicle",
+                    "Train",
+                    "Horse (ridden or drawn)",
+                    "Prime Mover Only",
+                    "Heavy Vehicle (Rigid) > 4.5 Tonnes",
+                    "Light Commercial Vehicle (Rigid) <= 4.5 Tonnes GVM",
+                    "Prime Mover - Single Trailer"
+                ]
+            }
+        }
+    ],
+    "transform": [
+        {
+            "filter": "datum['Vehicle Type Desc'] == vehicle_select"
+        },
+        {
+            "lookup": "ACCIDENT_NO",
+            "from": {
+                "data": {
+                    "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/PERSON.csv",
+                    "format": {
+                        "type": "csv"
+                    }
+                },
+                "key": "ACCIDENT_NO",
+                "fields": [
+                    "SEATING_POSITION",
+                    "Inj Level Desc"
+                ]
+            }
+        },
+        {
+            "joinaggregate": [
+                {
+                    "op": "count",
+                    "field": "SEATING_POSITION",
+                    "as": "TotalOrigin"
+                }
+            ]
+        },
+        {
+            "joinaggregate": [
+                {
+                    "op": "count",
+                    "field": "SEATING_POSITION",
+                    "as": "TotalOriginGrouped"
+                }
+            ],
+            "groupby": [
+                "SEATING_POSITION"
+            ]
+        },
+        {
+            "calculate": "datum.TotalOriginGrouped/datum.TotalOrigin * 100",
+            "as": "PercentOfTotal"
+        },
+        {
+            "aggregate": [
+                {
+                    "op": "min",
+                    "field": "PercentOfTotal",
+                    "as": "Percent"
+                }
+            ],
+            "groupby": [
+                "SEATING_POSITION"
+            ]
+        },
+        {
+            "calculate": "sequence(1,101)",
+            "as": "Sequence"
+        },
+        {
+            "flatten": [
+                "Sequence"
+            ]
+        },
+        {
+            "calculate": "if(datum.Sequence <= datum.Percent, datum.SEATING_POSITION,'_blank')",
+            "as": "Plot"
+        },
+        {
+            "calculate": "ceil (datum.Sequence / 10)",
+            "as": "row"
+        },
+        {
+            "calculate": "datum.Sequence - datum.row * 10",
+            "as": "col"
+        }
+    ],
+    "facet": {
+        "column": {
+            "field": "SEATING_POSITION",
+            "header": {
+                "labelOrient": "bottom"
+            },
+            "title": null
+        }
+    },
+    "spec": {
+        "layer": [
+            {
+                "mark": {
+                    "type": "square"
+                },
+                "encoding": {
+                    "x": {
+                        "field": "col",
+                        "type": "ordinal",
+                        "axis": null
+                    },
+                    "y": {
+                        "field": "row",
+                        "type": "ordinal",
+                        "axis": null,
+                        "sort": "-y"
+                    },
+                    "color": {
+                        "condition": {
+                            "test": "datum.Plot == '_blank'",
+                            "value": "#e6e3e3"
+                        },
+                        "scale": {
+                            "scheme": "set1"
+                        },
+                        "field": "Plot",
+                        "type": "nominal",
+                        "legend": null
+                    },
+                    "size": {
+                        "value": 241
+                    },
+                    "tooltip": [
+                        {
+                            "field": "SEATING_POSITION",
+                            "type": "nominal"
+                        }
+                    ]
+                }
+            },
+            {
+                "mark": {
+                    "type": "text",
+                    "fontSize": 30,
+                    "fontWeight": "bold"
+                },
+                "encoding": {
+                    "text": {
+                        "condition": {
+                            "test": "datum.Sequence == 1",
+                            "value": {
+                                "expr": "format(datum.Percent, '.5f') + '%'"
+                            }
+                        }
+                    },
+                    "color": {
+                        "scale": {
+                            "scheme": "set1"
+                        },
+                        "field": "Plot"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,16 +1,15 @@
 {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "title": {
-      "text": "No Injuries Accident",
+      "text": "Fatal Injuries Accident",
       "anchor": "middle",
       "fontSize": 14,
-      "dy": -8,
       "dx": {
         "signal": "-width/4"
       }
     },
-    "width": 250,
-    "height": 300,
+    "width": 280,
+    "height": 280,
     "autosize": "none",
     "signals": [
       {
@@ -98,7 +97,7 @@
         "nice": false,
         "domain": [
           0,
-          0.5
+          0.7
         ]
       }
     ],

@@ -135,7 +135,6 @@
                 "color": {
                     "field": "count",
                     "type": "quantitative",
-                    "title": "Count of accidents",
                     "scale": {
                         "scheme": "goldred"
                     }
@@ -196,7 +195,7 @@
             },
             "mark": {
                 "type": "text",
-                "fontSize": 8,
+                "fontSize": 16,
                 "fontWeight": "bold"
             },
             "encoding": {
@@ -211,16 +210,21 @@
                 "text": {
                     "field": "name",
                     "type": "nominal"
+                },
+                "color":{"value": "white"},
+                "opacity": {
+                    "value": 0.5
                 }
             }
         }
     ],
-    "width": 600,
-    "height": 400,
-    "title": "Road Accident in Victoria, Australia",
+    "width": "container",
+    "height": "container",
+    "title": "Victoria Road Accidents by LGA",
     "config": {
         "legend": {
-            "orient": "left"
+            "orient": "left",
+            "title": null
         }
     }
 }

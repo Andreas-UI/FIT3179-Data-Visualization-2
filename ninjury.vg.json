@@ -9,8 +9,8 @@
       "signal": "-width/4"
     }
   },
-  "width": 250,
-  "height": 300,
+  "width": 280,
+  "height": 280,
   "autosize": "none",
   "signals": [
     {
@@ -98,7 +98,7 @@
       "nice": false,
       "domain": [
         0,
-        0.5
+        0.7
       ]
     }
   ],
