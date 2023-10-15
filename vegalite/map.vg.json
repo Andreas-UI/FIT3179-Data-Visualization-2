@@ -81,7 +81,7 @@
     "layer": [
         {
             "data": {
-                "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/dataset/vic_lga_gda94.topojson",
+                "url": "https://raw.githubusercontent.com/Andreas-UI/FIT3179-Data-Visualization-2/master/vic_lga_gda94.topojson",
                 "format": {
                     "type": "topojson",
                     "feature": "unnamed"
