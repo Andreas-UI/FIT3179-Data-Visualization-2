@@ -151,6 +151,36 @@
         background-color: #f2f2f2;
       }
 
+      .overlay {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+      }
+
+      .loading-spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid #e11d48;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
       @media (max-width: 1040px) {
         .flex-row {
           display: flex;
@@ -176,6 +206,30 @@
     </style>
   </head>
   <body>
+    <div id="overlay" class="overlay">
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 2rem;
+          margin: 24px;
+          width: 500px;
+          height: 60px;
+          background-color: #333;
+          color: #fff;
+          padding: 15px;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        "
+      >
+        <div class="loading-spinner" style="width: 50px; height: 50px"></div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <div style="font-size: large;"> Some charts may not available while fetching</div>
+          <div class="loading-desc">First time ? This may take longer</div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="header">
         <h1 class="title">
@@ -400,30 +454,43 @@
               <tr>
                 <td>CR</td>
                 <td>Center Rear</td>
-                <td>The center rear seat, often found in larger vehicles or sedans.</td>
+                <td>
+                  The center rear seat, often found in larger vehicles or
+                  sedans.
+                </td>
               </tr>
               <tr>
                 <td>NK</td>
                 <td>Not Known</td>
-                <td>Used when the exact seating position is unspecified or unknown.</td>
+                <td>
+                  Used when the exact seating position is unspecified or
+                  unknown.
+                </td>
               </tr>
               <tr>
                 <td>OR</td>
                 <td>Other</td>
-                <td>A category for positions not covered by the aforementioned designations.</td>
+                <td>
+                  A category for positions not covered by the aforementioned
+                  designations.
+                </td>
               </tr>
               <tr>
                 <td>CF</td>
                 <td>Center Front</td>
-                <td>Designates the center front seat, a feature seen in certain vehicle models.</td>
+                <td>
+                  Designates the center front seat, a feature seen in certain
+                  vehicle models.
+                </td>
               </tr>
               <tr>
                 <td>PS</td>
                 <td>Passenger Rear</td>
-                <td>The passenger rear seat, typically located on the left side.</td>
+                <td>
+                  The passenger rear seat, typically located on the left side.
+                </td>
               </tr>
             </table>
-            
           </div>
           <div class="carousel">
             <div id="waffle" class="idiom" style="height: 280px"></div>
@@ -442,91 +509,205 @@
     </div>
 
     <script type="text/javascript">
-      var spec = "vegalite/map.vg.json";
-      vegaEmbed("#map", spec)
+      var readyCount = 0;
+
+      var mapSpec = "vegalite/map.vg.json";
+      vegaEmbed("#map", mapSpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/timeseries.vg.json";
-      vegaEmbed("#timeseries", spec)
+      var timeseriesSpec = "vegalite/timeseries.vg.json";
+      vegaEmbed("#timeseries", timeseriesSpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/heatmap.vg.json";
-      vegaEmbed("#heatmap", spec)
+      var heatmapSpec = "vegalite/heatmap.vg.json";
+      vegaEmbed("#heatmap", heatmapSpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/bar.vg.json";
-      vegaEmbed("#bar", spec)
+      var barSpec = "vegalite/bar.vg.json";
+      vegaEmbed("#bar", barSpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/finjury.vg.json";
-      vegaEmbed("#finjury", spec)
+      var finjurySpec = "vegalite/finjury.vg.json";
+      vegaEmbed("#finjury", finjurySpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/ninjury.vg.json";
-      vegaEmbed("#ninjury", spec)
+      var ninjurySpec = "vegalite/ninjury.vg.json";
+      vegaEmbed("#ninjury", ninjurySpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/oinjury.vg.json";
-      vegaEmbed("#oinjury", spec)
+      var oinjurySpec = "vegalite/oinjury.vg.json";
+      vegaEmbed("#oinjury", oinjurySpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/sinjury.vg.json";
-      vegaEmbed("#sinjury", spec)
+      var sinjurySpec = "vegalite/sinjury.vg.json";
+      vegaEmbed("#sinjury", sinjurySpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/vehicle.vg.json";
-      vegaEmbed("#vehicle", spec)
+      var vehicleSpec = "vegalite/vehicle.vg.json";
+      vegaEmbed("#vehicle", vehicleSpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
-    </script>
 
-    <script type="text/javascript">
-      var spec = "vegalite/waffle.vg.json";
-      vegaEmbed("#waffle", spec)
+      var waffleSpec = "vegalite/waffle.vg.json";
+      vegaEmbed("#waffle", waffleSpec)
         .then(function (result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+          console.log(result);
+          readyCount++;
+          if (readyCount == 10) {
+            console.log("Visualizations are ready");
+            var overlay = document.getElementById("overlay");
+            overlay.style.display = "none";
+          } else if (readyCount == 5) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "We are halfway there...";
+          } else if (readyCount == 7) {
+            var loadingTextElement = document.querySelector(".loading-desc");
+            loadingTextElement.textContent = "Almost there ...";
+          }
+          console.log(readyCount);
         })
         .catch(console.error);
     </script>
