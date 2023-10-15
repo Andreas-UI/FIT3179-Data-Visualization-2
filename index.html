@@ -18,6 +18,11 @@
         font-family: "Inter", sans-serif;
       }
 
+      h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
       .container {
         padding: 1.5rem;
         box-sizing: border-box;
@@ -74,7 +79,7 @@
       .content {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 2rem;
       }
 
       .flex-row {
@@ -100,7 +105,6 @@
 
       .section-heading {
         display: block;
-        margin-top: 0;
       }
 
       .overlap-top {
@@ -172,6 +176,14 @@
         animation: spin 2s linear infinite;
       }
 
+      .alert {
+        background-color: #e11d48; /* Red background color */
+        color: white;
+        padding: 1rem;
+        border-radius: 5px;
+        width: 100%; /* Adjust the width as needed */
+      }
+
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -224,8 +236,10 @@
         "
       >
         <div class="loading-spinner" style="width: 50px; height: 50px"></div>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <div style="font-size: large;"> Some charts may not available while fetching</div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <div style="font-size: large">
+            Some charts may not available while fetching
+          </div>
           <div class="loading-desc">First time ? This may take longer</div>
         </div>
       </div>
@@ -260,24 +274,35 @@
             <p class="text">
               During the period spanning 2000 to 2005, an analysis of road
               accidents in Victoria revealed a stark trend: metropolitan areas
-              suffered the bulk of these incidents. The metropolitan north-west
-              region, home to Melbourne, witnessed a disproportionately high
-              number of accidents - a staggering 7170, cementing its status as
-              the leading area for road accidents. The metropolitan south-east
-              region saw Greater Dandenong record 3892 accidents, earning a
-              notable second position, while Casey, also located in this region,
-              tallied 3717 accidents.
+              suffered the bulk of these incidents. The Metropolitan North-West
+              region, home to
+              <strong style="font-size: large">Melbourne</strong>, witnessed a
+              disproportionately high number of accidents - a staggering
+              <strong style="color: #e11d48; font-size: large">7170</strong>,
+              cementing its status as the leading area for road accidents. The
+              Metropolitan South-East region saw
+              <strong style="font-size: large"> Dandenong </strong> record
+              <strong style="color: #e11d48; font-size: large"> 3892 </strong>
+              accidents, earning a notable second position, while
+              <strong style="font-size: large">Casey</strong>, also located in
+              this region, tallied
+              <strong style="color: #e11d48; font-size: large">3717</strong>
+              accidents.
             </p>
             <div id="map" class="idiom"></div>
             <p class="text">
               These figures unequivocally demonstrate that road accidents are
-              largely concentrated in Victoria's metropolitan hubs.
-              Consequently, there is a pressing need for customized regional
-              approaches to road safety campaigns and traffic administration,
-              specifically designed to counteract the heightened hazards arising
-              from dense population concentrations in urban areas. Acknowledging
-              this phenomenon fuels endeavors to bolster safety standards and
-              shield the communities living in these bustling metropolises.
+              largely concentrated in
+              <strong style="font-size: large">
+                Victoria's Metropolitan
+              </strong>
+              hubs. Consequently, there is a pressing need for customized
+              regional approaches to road safety campaigns and traffic
+              administration, specifically designed to counteract the heightened
+              hazards arising from dense population concentrations in urban
+              areas. Acknowledging this phenomenon fuels endeavors to bolster
+              safety standards and shield the communities living in these
+              bustling metropolises.
             </p>
           </div>
           <div>
@@ -288,15 +313,17 @@
             <p class="text">
               Analyzing the historical data on road accidents in Victoria from
               2000 to 2005 reveals a remarkable consistency in the number of
-              accidents throughout the six-year period. The data shows no
-              discernible upward or downward trend, the stability in accident
-              rates suggests that existing safety initiatives and awareness
-              campaigns have been effective in maintaining a consistent level of
-              safety on Victorian roads. However, this does not diminish the
-              need for sustained effort and continuous improvement in road
-              safety policies and strategies. Instead, it highlights the
-              importance of persistently addressing road safety concerns to
-              ensure the well-being of all road users.
+              accidents throughout the six-year period. The data shows<strong
+                style="color: #e11d48; font-size: large"
+              >
+                no discernible upward or downward trend </strong
+              >, the stability in accident rates suggests that existing safety
+              initiatives and awareness campaigns have been effective in
+              maintaining a consistent level of safety on Victorian roads.
+              However, this does not diminish the need for sustained effort and
+              continuous improvement in road safety policies and strategies.
+              Instead, it highlights the importance of persistently addressing
+              road safety concerns to ensure the well-being of all road users.
             </p>
           </div>
         </div>
@@ -314,28 +341,31 @@
             complex and critical aspect of accident analysis. Data from
             comprehensive studies conducted in Victoria from 2000 to 2005 has
             yielded intriguing insights. Surprisingly, road accidents were most
-            prevalent under conditions that one might assume to be safe: a dry
-            road surface and clear atmospheric weather. This condition topped
-            the list, raising questions about the contributing factors. Second
-            in the ranking was the combination of clear but wet road conditions,
-            followed closely by accidents occurring in the presence of rainfall,
-            further underscoring the need for a nuanced understanding of how
-            weather impacts road safety.
+            prevalent under conditions that one might assume to be safe:
+            <strong style="color: #e11d48; font-size: large"
+              >a dry road surface and clear atmospheric weather </strong
+            >. This condition topped the list, raising questions about the
+            contributing factors. Second in the ranking was the combination of
+            <strong style="color: #e11d48; font-size: large"
+              >clear but wet road </strong
+            >conditions, followed closely by accidents occurring in the presence
+            of
+            <strong style="color: #e11d48; font-size: large">rainfall </strong>.
           </div>
         </div>
 
         <div class="flex-col">
           <div class="text">
-            Understanding the relationship between weather conditions and road
-            safety sheds light on a critical dimension of accident analysis.
+            Understanding the <strong>relationship between weather conditions and road
+            safety</strong> sheds light on a critical dimension of accident analysis.
             This knowledge becomes particularly pertinent when we consider
             intersections and the crucial role road design plays in accident
             hotspots. While weather conditions affect driving conditions, making
             them an important factor in accidents, it's essential to acknowledge
             that even seemingly favorable weather, such as clear skies, can give
             rise to accidents, as highlighted in the former section. Recognizing
-            the intersection between weather-related factors and road design
-            becomes paramount as we address the multifaceted challenge of
+            the intersection between <strong>weather-related factors and road design
+            </strong> becomes paramount as we address the multifaceted challenge of
             reducing accidents at key points in our road networks.
           </div>
         </div>
@@ -350,13 +380,26 @@
             </h2>
             Road design plays a pivotal role in the prevalence of accident
             hotspots, a crucial aspect of road safety in Victoria. Data analysis
-            from 2000 to 2005 reveals that collisions with vehicles and fixed
-            objects constituted the most common accidents during this period.
-            What's intriguing, however, is that a significant proportion of
-            these incidents occurred at non-intersection points, highlighting
-            the importance of safety measures in all road scenarios. Among the
-            intersection-related accidents, crossroads and T-intersections stood
-            out as the primary sites for vehicle collisions.
+            from 2000 to 2005 reveals that
+            <strong style="font-size: large"
+              >collisions with vehicles and fixed objects</strong
+            >
+            constituted the most
+            <strong style="font-size: large">common</strong> accidents during
+            this period. What's intriguing, however, is that a significant
+            proportion of these incidents occurred at
+            <strong style="color: #e11d48; font-size: large"
+              >non-intersection</strong
+            >
+            points, highlighting the importance of safety measures in all road
+            scenarios. Among the intersection-related accidents,
+            <strong style="color: #e11d48; font-size: large">crossroads</strong>
+            and
+            <strong style="color: #e11d48; font-size: large"
+              >T-intersections</strong
+            >
+            stood out as the primary sites for
+            <strong style="font-size: large">vehicle collisions</strong>.
           </div>
           <div id="bar" class="idiom"></div>
         </div>
@@ -367,15 +410,23 @@
           </h2>
           <div class="text">
             Exploring the profiles of road users and their injury frequencies
-            during the period of our study provides valuable insights into the
-            dynamics of road accidents. Driver and passenger road users emerged
-            as particularly vulnerable, collectively accounting for nearly half
-            of the total accidents with fatal and serious injuries. This finding
-            underscores the critical need for protective measures and driver
-            awareness programs to reduce the severity of injuries for these
-            categories. Notably, motorcyclists ranked just after passengers in
-            terms of injury frequency, accentuating the unique risks faced by
-            motorcyclists on the road.
+            during the period provides insights into the dynamics of road
+            accidents.
+            <strong style="color: #e11d48; font-size: large"
+              >Driver and passenger</strong
+            >
+            road users emerged as particularly vulnerable, collectively
+            accounting for nearly half of the total accidents with
+            <strong style="font-size: large">fatal</strong> and
+            <strong style="font-size: large">serious injuries</strong>. This
+            finding underscores the critical need for protective measures and
+            driver awareness programs to reduce the severity of injuries for
+            these categories. Notably,
+            <strong style="color: #e11d48; font-size: large"
+              >motorcyclists</strong
+            >
+            ranked just after passengers in terms of injury frequency,
+            accentuating the unique risks faced by motorcyclists on the road.
           </div>
           <div class="carousel">
             <div id="finjury" class="idiom" style="height: 290px"></div>
@@ -393,13 +444,20 @@
             When examining the impact of vehicle specifications on road safety,
             several critical factors come into focus. The type of vehicle body,
             for instance, can significantly influence the outcome of accidents,
-            with larger and heavier vehicles generally providing more protection
+            with
+            <strong style="font-size: large"
+              >larger and heavier vehicles</strong
+            >
+            generally providing more
+            <strong style="font-size: large">protection</strong>
             to occupants. The level of vehicle power plays a pivotal role in
             accident dynamics, affecting a vehicle's ability to navigate and
             respond to sudden hazards. Moreover, the extent of damage sustained
             during an accident is closely linked to vehicle design and safety
-            features. In addition to these aspects, fuel type introduces an
-            environmental dimension, while the risk of vehicles catching fire
+            features. In addition to these aspects,
+            <strong style="font-size: large">fuel type</strong> introduces an
+            environmental dimension, while the risk of vehicles
+            <strong style="font-size: large">catching fire</strong>
             underscores the importance of fire safety measures.
           </div>
           <div class="carousel">
@@ -410,14 +468,14 @@
         <div class="flex-col">
           <h2 style="margin-bottom: 0">Sitting Position Matters in Vehicle</h2>
           <div class="text">
-            The seating positions within a vehicle play a pivotal role in
-            ensuring the safety of occupants. These positions are typically
-            denoted by codes such as 'LF' (Left Front), 'D' (Driver), 'PL'
-            (Passenger Left), 'LR' (Left Rear), 'RR' (Right Rear), 'CR' (Center
-            Rear), 'NK' (Not Known), 'OR' (Other), 'CF' (Center Front), and 'PS'
-            (Passenger Rear). Each of these designations carries specific
-            significance, reflecting where individuals are situated within the
-            vehicle.
+            The
+            <strong style="font-size: large">seating positions</strong> within a
+            vehicle play an important role in ensuring the safety of occupants.
+            These positions are typically denoted by codes such as
+            <strong style="font-size: large"
+              >LF, D, PL, LR, RR, CR, NK, OR, CF and PS</strong
+            >. Each of these designations carries specific significance,
+            reflecting where individuals are situated within the vehicle.
           </div>
           <div>
             <table class="table">
@@ -496,13 +554,10 @@
             <div id="waffle" class="idiom" style="height: 280px"></div>
           </div>
           <div class="text">
-            Recognizing these seating positions is essential for road safety, as
-            it informs the deployment of safety features like airbags and seat
-            belts, tailored to protect passengers based on their specific
-            location within the vehicle. It is through this understanding that
-            vehicle manufacturers and safety experts refine safety systems,
-            highlighting the critical role that 'Sitting Position Matters in a
-            Vehicle' plays in safeguarding occupants."
+            Acknowledging these seating positions is essential for road safety,
+            as it informs the deployment of safety features like airbags and
+            seat belts, tailored to protect passengers based on their specific
+            location within the vehicle.
           </div>
         </div>
       </div>
